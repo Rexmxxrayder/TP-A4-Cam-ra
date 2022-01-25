@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     public Camera camera;
     private CameraConfiguration configurationM;
 
-    private List<AView> activeViews;
+    private List<AView> activeViews = new List<AView>();
 
     
     private static CameraController instance;
@@ -29,10 +29,7 @@ public class CameraController : MonoBehaviour
         {
             instance = this;
         }
-    }
 
-    private void Start()
-    {
         configurationM = new CameraConfiguration();
     }
 

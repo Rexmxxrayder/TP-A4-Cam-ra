@@ -18,7 +18,7 @@ public class FixedView : AView
 
     private CameraConfiguration configuration;
 
-    private void Start()
+    private void Awake()
     {
         configuration = new CameraConfiguration();
     }

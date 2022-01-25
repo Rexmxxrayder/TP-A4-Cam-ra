@@ -10,14 +10,16 @@ abstract public class AView : MonoBehaviour
 
     abstract public CameraConfiguration GetConfiguration();
 
-    protected void Start()
+    void Start()
     {
-        if (isActiveOnStart)
-            SetActive(true);
+        SetActive(isActiveOnStart);
     }
 
-    protected void SetActive(bool isActive)
+    void SetActive(bool isActive)
     {
-        gameObject.SetActive(isActive);
+        if(isActive)
+            CameraController.Instance.AddView(this);
+        else
+            CameraController.Instance.RemoveView(this);
     }
 }
