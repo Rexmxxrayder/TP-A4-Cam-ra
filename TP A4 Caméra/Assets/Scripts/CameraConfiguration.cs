@@ -65,6 +65,6 @@ public class CameraConfiguration
         roll = 0;
         distance = 0;
         fov = 0;
-        pivot = Vector3.zero;
+        //pivot = Vector3.zero;
     }
 }

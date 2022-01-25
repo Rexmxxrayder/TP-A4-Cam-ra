@@ -27,15 +27,16 @@ public class CameraController : MonoBehaviour
     private void Awake()
     {
         if (instance != null && instance != this)
-        {
             Destroy(this.gameObject);
-        }
         else
-        {
             instance = this;
-        }
 
         configurationM = new CameraConfiguration();
+    }
+
+    private void Start()
+    {
+        camera.transform.position = currentConfig.transform.position;
     }
 
     private void Update()
@@ -53,7 +54,7 @@ public class CameraController : MonoBehaviour
             configurationM.pitch += config.pitch * view.weight;
             configurationM.roll += config.roll * view.weight;
             configurationM.fov += config.fov * view.weight;
-            configurationM.pivot += config.pivot * view.weight;
+            //configurationM.pivot += config.pivot * view.weight;
             configurationM.distance += config.distance * view.weight;
 
             weightTotal += view.weight;
@@ -63,7 +64,7 @@ public class CameraController : MonoBehaviour
         configurationM.pitch /= weightTotal;
         configurationM.roll /= weightTotal;
         configurationM.fov /= weightTotal;
-        configurationM.pivot /= weightTotal;
+        //configurationM.pivot /= weightTotal;
         configurationM.distance /= weightTotal;
         configurationM.yaw = ComputeAverageYaw();
 
@@ -73,14 +74,14 @@ public class CameraController : MonoBehaviour
         if (speed * Time.deltaTime < 1)
             camera.transform.position = camera.transform.position + (targetConfig.transform.position - camera.transform.position) * speed * Time.deltaTime;
         else
-            camera.transform.position = camera.transform.position;
+            camera.transform.position = targetConfig.transform.position;
 
     }
 
     public void ApplyConfiguration(Camera cam, CameraConfiguration config)
     {
         cam.transform.rotation = config.GetRotation();
-        cam.transform.position = config.GetPosition();
+        //cam.transform.position = config.GetPosition();
         cam.fieldOfView = config.fov;
     }
 
