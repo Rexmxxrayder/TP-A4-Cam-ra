@@ -5,7 +5,7 @@ using System;
 
 
 [Serializable]
-public class CameraConfiguration : MonoBehaviour
+public class CameraConfiguration
 {
     
     [Range(0f, 360f)]
@@ -56,5 +56,15 @@ public class CameraConfiguration : MonoBehaviour
         Gizmos.matrix = Matrix4x4.TRS(position, GetRotation(), Vector3.one);
         Gizmos.DrawFrustum(Vector3.zero, fov, 0.5f, 0f, Camera.main.aspect);
         Gizmos.matrix = Matrix4x4.identity;
+    }
+
+    public void Reset()
+    {
+        yaw = 0;
+        pitch = 0;
+        roll = 0;
+        distance = 0;
+        fov = 0;
+        pivot = Vector3.zero;
     }
 }
