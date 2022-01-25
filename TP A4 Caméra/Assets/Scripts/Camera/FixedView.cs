@@ -36,7 +36,6 @@ public class FixedView : AView
         configuration.pitch = pitch;
         configuration.roll = roll;
         configuration.fov = fov;
-        //configuration.distance = 0;
         configuration.pivot = gameObject.transform.position;
 
         return configuration;

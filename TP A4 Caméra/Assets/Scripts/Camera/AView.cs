@@ -12,7 +12,7 @@ abstract public class AView : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        GetConfiguration().DrawGizmos(Color.red);
+       // GetConfiguration().DrawGizmos(Color.red);
     }
 
     void Start()

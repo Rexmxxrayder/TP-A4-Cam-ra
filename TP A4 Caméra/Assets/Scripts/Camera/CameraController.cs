@@ -11,11 +11,19 @@ public class CameraController : MonoBehaviour
     public float speed;
     private bool isFirstUpdate = true;
 
+    [SerializeField]
     private List<AView> activeViews = new List<AView>();
 
     
     private static CameraController instance;
     public static CameraController Instance { get { return instance; } }
+
+    [SerializeField]
+    Transform centralTarget;
+    public bool isCentralTarget;
+    public Vector2 targetYawPitch;
+    public Vector2 YawMaxOffset;
+    public Vector2 PitchMaxOffset;
 
 
     private void Awake()
@@ -29,7 +37,13 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        //currentConfig;
+        Vector3 direction = Vector3.zero;
+        direction.x = centralTarget.position.x - transform.position.x;
+        direction.y = centralTarget.position.y - transform.position.y;
+        direction.z = centralTarget.position.z - transform.position.z;
+        direction = direction.normalized;
+        targetYawPitch.x = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        targetYawPitch.y = -Mathf.Asin(direction.y) * Mathf.Rad2Deg;
     }
 
     private void Update()
@@ -64,10 +78,10 @@ public class CameraController : MonoBehaviour
         if (speed * Time.deltaTime < 1 && !isFirstUpdate)
         {
             currentConfig.pivot = currentConfig.pivot + (targetConfig.pivot - currentConfig.pivot) * speed * Time.deltaTime;
-            currentConfig.pitch = targetConfig.pitch;
-            currentConfig.roll = targetConfig.roll;
-            currentConfig.fov = targetConfig.fov;
-            currentConfig.distance = targetConfig.distance;
+            currentConfig.pitch = targetConfig.pitch + (targetConfig.pitch - currentConfig.pitch) * speed * Time.deltaTime;
+            currentConfig.roll = targetConfig.roll +(targetConfig.roll - currentConfig.roll) * speed * Time.deltaTime;
+            currentConfig.fov = targetConfig.fov + (targetConfig.fov - currentConfig.fov) * speed * Time.deltaTime;
+            currentConfig.distance = targetConfig.distance + (targetConfig.distance - currentConfig.distance) * speed * Time.deltaTime;
             currentConfig.yaw = targetConfig.yaw;
         }
         else
@@ -80,6 +94,27 @@ public class CameraController : MonoBehaviour
             currentConfig.yaw = targetConfig.yaw;
         }
 
+
+        #region FixedFollowView
+        if (isCentralTarget) {
+            if (currentConfig.yaw > targetYawPitch.x + YawMaxOffset.x) {
+                currentConfig.yaw = YawMaxOffset.x;
+            }
+
+            if (currentConfig.yaw < targetYawPitch.x + YawMaxOffset.y) {
+                currentConfig.yaw = YawMaxOffset.y;
+            }
+
+            if (currentConfig.pitch > targetYawPitch.y + PitchMaxOffset.x) {
+                currentConfig.pitch = PitchMaxOffset.x;
+            }
+
+            if (currentConfig.pitch < targetYawPitch.y + PitchMaxOffset.y) {
+                currentConfig.pitch = PitchMaxOffset.y;
+            }
+        }
+
+        #endregion
         ApplyConfiguration(camera, currentConfig);
 
         isFirstUpdate = false;
@@ -106,14 +141,27 @@ public class CameraController : MonoBehaviour
     public float ComputeAverageYaw()
     {
         Vector2 sum = Vector2.zero;
-        foreach (AView view in activeViews)
-        {
+        foreach (AView view in activeViews) {
             CameraConfiguration config = view.GetConfiguration();
 
             sum += new Vector2(Mathf.Cos(config.yaw * Mathf.Deg2Rad),
             Mathf.Sin(config.yaw * Mathf.Deg2Rad)) * view.weight;
         }
         return Vector2.SignedAngle(Vector2.right, sum);
+        //float sum = 0;
+        //float total = 0;
+        //foreach (AView view in activeViews) {
+        //    CameraConfiguration config = view.GetConfiguration();
+        //    float yaw = config.yaw;
+        //    yaw %= 360;
+        //    yaw += 360;
+        //    yaw %= 360;
+        //    yaw = yaw - 180;
+        //    sum += yaw * view.weight;
+        //    total++;
+        //}
+        //return sum / total + 180;
+
     }
 
 
