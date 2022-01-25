@@ -7,6 +7,11 @@ public class CameraController : MonoBehaviour
     public Camera camera;
     private CameraConfiguration configurationM;
 
+    public FixedView currentConfig;
+    public FixedView targetConfig;
+
+    public float speed;
+
     private List<AView> activeViews = new List<AView>();
 
     
@@ -14,10 +19,10 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance { get { return instance; } }
 
 
-    private void OnDrawGizmos()
-    {
-        //configuration.DrawGizmos(Color.red);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    configuration.DrawGizmos(Color.red);
+    //}
 
     private void Awake()
     {
@@ -63,6 +68,12 @@ public class CameraController : MonoBehaviour
         configurationM.yaw = ComputeAverageYaw();
 
         ApplyConfiguration(camera, configurationM);
+
+
+        if (speed * Time.deltaTime < 1)
+            camera.transform.position = camera.transform.position + (targetConfig.transform.position - camera.transform.position) * speed * Time.deltaTime;
+        else
+            camera.transform.position = camera.transform.position;
 
     }
 
