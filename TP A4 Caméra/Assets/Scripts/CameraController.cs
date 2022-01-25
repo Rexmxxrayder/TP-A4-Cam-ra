@@ -5,12 +5,11 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public Camera camera;
-    private CameraConfiguration configurationM;
-
-    public FixedView currentConfig;
-    public FixedView targetConfig;
+    private CameraConfiguration currentConfig = new CameraConfiguration();
+    private CameraConfiguration targetConfig = new CameraConfiguration();
 
     public float speed;
+    private bool isFirstUpdate = true;
 
     private List<AView> activeViews = new List<AView>();
 
@@ -19,11 +18,6 @@ public class CameraController : MonoBehaviour
     public static CameraController Instance { get { return instance; } }
 
 
-    //private void OnDrawGizmos()
-    //{
-    //    configuration.DrawGizmos(Color.red);
-    //}
-
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -31,19 +25,17 @@ public class CameraController : MonoBehaviour
         else
             instance = this;
 
-        configurationM = new CameraConfiguration();
     }
 
     private void Start()
     {
-        camera.transform.position = currentConfig.transform.position;
+        //currentConfig;
     }
 
     private void Update()
     {
-        //ApplyConfiguration(camera, configuration);
 
-        configurationM.Reset();
+        targetConfig.Reset();
 
         float weightTotal = 0;
 
@@ -51,37 +43,53 @@ public class CameraController : MonoBehaviour
         {
             CameraConfiguration config = view.GetConfiguration();
 
-            configurationM.pitch += config.pitch * view.weight;
-            configurationM.roll += config.roll * view.weight;
-            configurationM.fov += config.fov * view.weight;
-            //configurationM.pivot += config.pivot * view.weight;
-            configurationM.distance += config.distance * view.weight;
+            targetConfig.pitch += config.pitch * view.weight;
+            targetConfig.roll += config.roll * view.weight;
+            targetConfig.fov += config.fov * view.weight;
+            targetConfig.pivot += config.pivot * view.weight;
+            targetConfig.distance += config.distance * view.weight;
 
             weightTotal += view.weight;
 
         }
 
-        configurationM.pitch /= weightTotal;
-        configurationM.roll /= weightTotal;
-        configurationM.fov /= weightTotal;
-        //configurationM.pivot /= weightTotal;
-        configurationM.distance /= weightTotal;
-        configurationM.yaw = ComputeAverageYaw();
-
-        ApplyConfiguration(camera, configurationM);
+        targetConfig.pitch /= weightTotal;
+        targetConfig.roll /= weightTotal;
+        targetConfig.fov /= weightTotal;
+        targetConfig.pivot /= weightTotal;
+        targetConfig.distance /= weightTotal;
+        targetConfig.yaw = ComputeAverageYaw();
 
 
-        if (speed * Time.deltaTime < 1)
-            camera.transform.position = camera.transform.position + (targetConfig.transform.position - camera.transform.position) * speed * Time.deltaTime;
+        if (speed * Time.deltaTime < 1 && !isFirstUpdate)
+        {
+            currentConfig.pivot = currentConfig.pivot + (targetConfig.pivot - currentConfig.pivot) * speed * Time.deltaTime;
+            currentConfig.pitch = targetConfig.pitch;
+            currentConfig.roll = targetConfig.roll;
+            currentConfig.fov = targetConfig.fov;
+            currentConfig.distance = targetConfig.distance;
+            currentConfig.yaw = targetConfig.yaw;
+        }
         else
-            camera.transform.position = targetConfig.transform.position;
+        {
+            currentConfig.pivot = targetConfig.pivot;
+            currentConfig.pitch = targetConfig.pitch;
+            currentConfig.roll = targetConfig.roll;
+            currentConfig.fov = targetConfig.fov;
+            currentConfig.distance = targetConfig.distance;
+            currentConfig.yaw = targetConfig.yaw;
+        }
+
+        ApplyConfiguration(camera, currentConfig);
+
+        isFirstUpdate = false;
 
     }
 
     public void ApplyConfiguration(Camera cam, CameraConfiguration config)
     {
         cam.transform.rotation = config.GetRotation();
-        //cam.transform.position = config.GetPosition();
+        cam.transform.position = config.GetPosition();
         cam.fieldOfView = config.fov;
     }
 

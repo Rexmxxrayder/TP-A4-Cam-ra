@@ -10,6 +10,11 @@ abstract public class AView : MonoBehaviour
 
     abstract public CameraConfiguration GetConfiguration();
 
+    private void OnDrawGizmos()
+    {
+        GetConfiguration().DrawGizmos(Color.red);
+    }
+
     void Start()
     {
         SetActive(isActiveOnStart);

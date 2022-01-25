@@ -218,9 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1981644542}
-  currentConfig: {fileID: 348113609}
-  targetConfig: {fileID: 976106392}
-  speed: 0.2
+  speed: 0.5
 --- !u!1 &976106390
 GameObject:
   m_ObjectHideFlags: 0
