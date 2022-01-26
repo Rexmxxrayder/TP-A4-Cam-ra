@@ -82,6 +82,10 @@ public class CameraController : MonoBehaviour
             currentConfig.roll = targetConfig.roll +(targetConfig.roll - currentConfig.roll) * speed * Time.deltaTime;
             currentConfig.fov = targetConfig.fov + (targetConfig.fov - currentConfig.fov) * speed * Time.deltaTime;
             currentConfig.distance = targetConfig.distance + (targetConfig.distance - currentConfig.distance) * speed * Time.deltaTime;
+
+
+
+            
             currentConfig.yaw = targetConfig.yaw;
         }
         else

@@ -596,8 +596,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 10
   isActiveOnStart: 1
-  yaw: 0
-  pitch: 0
   roll: 0
   fov: 60
   target: {fileID: 349393665}
@@ -1164,8 +1162,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 5
   isActiveOnStart: 1
-  yaw: 0
-  pitch: 0
   roll: 0
   fov: 60
   target: {fileID: 1457529003}

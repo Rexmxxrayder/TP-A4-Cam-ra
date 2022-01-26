@@ -7,7 +7,6 @@ public class Rail : MonoBehaviour {
     [SerializeField]
     public bool isLoop;
     float length;
-    public bool isAuto;
     void Start() {
         length = GetLength();
     }

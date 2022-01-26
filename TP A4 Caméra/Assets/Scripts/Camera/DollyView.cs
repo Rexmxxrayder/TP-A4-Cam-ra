@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class DollyView : AView
 {
-    [Range(0f, 360f)]
-    public float yaw;
-
-    [Range(-90f, 90f)]
-    public float pitch;
+    
+    private float yaw;
+    private float pitch;
 
     [Range(-180f, 180f)]
     public float roll;
@@ -29,25 +27,69 @@ public class DollyView : AView
     [SerializeField]
     Transform target;
 
+    public bool isAuto;
+
     private void Awake() {
         configuration = new CameraConfiguration();
     }
 
     private void Update() {
-        distanceOnRail += Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
-        if (rail.isLoop) {
-            if (distanceOnRail < 0 || distanceOnRail > rail.GetLength()) {
-                distanceOnRail %= rail.GetLength();
-                distanceOnRail += rail.GetLength();
-                distanceOnRail %= rail.GetLength();
+        
+        
+        if (isAuto)
+        {
+            float distance = Mathf.Infinity;
+            Vector3 position = Vector3.zero;
+
+            for (int i = 0; i < rail.railPoint.Length - 1; i++)
+            {
+                Vector3 positionNearestPoint = MathsUtils.GetNearestPointOnSegment(rail.railPoint[i].position, rail.railPoint[i + 1].position, target.position);
+                float newDistance = Vector3.Distance(position, target.position);
+
+                if (newDistance < distance)
+                {
+                    distance = newDistance;
+                    position = positionNearestPoint;
+                }
             }
-        } else {
-            distanceOnRail = Mathf.Clamp(distanceOnRail, 0f, rail.GetLength());
+
+            if (rail.isLoop)
+            {
+                Vector3 positionNearestPoint2 = MathsUtils.GetNearestPointOnSegment(rail.railPoint[rail.railPoint.Length - 1].position, rail.railPoint[0].position, target.position);
+                float newDistance2 = Vector3.Distance(position, target.position);
+
+                if (newDistance2 < distance)
+                {
+                    distance = newDistance2;
+                    position = positionNearestPoint2;
+                }
+            }
+
+            pivot = position;
         }
-        pivot = rail.GetPosition(distanceOnRail);
-        transform.position = pivot;
+        else
+        {
+            distanceOnRail += Input.GetAxisRaw("Horizontal") * speed * Time.deltaTime;
+            if (rail.isLoop)
+            {
+                if (distanceOnRail < 0 || distanceOnRail > rail.GetLength())
+                {
+                    distanceOnRail %= rail.GetLength();
+                    distanceOnRail += rail.GetLength();
+                    distanceOnRail %= rail.GetLength();
+                }
+            }
+            else
+            {
+                distanceOnRail = Mathf.Clamp(distanceOnRail, 0f, rail.GetLength());
+            }
+            pivot = rail.GetPosition(distanceOnRail);
+            transform.position = pivot;
+        }
+
         LookAt(target);
     }
+
     void LookAt(Transform target) {
         Vector3 direction = Vector3.zero;
         direction.x = target.position.x - transform.position.x;
@@ -65,7 +107,7 @@ public class DollyView : AView
         configuration.pitch = pitch;
         configuration.roll = roll;
         configuration.fov = fov;
-        configuration.pivot = gameObject.transform.position;
+        configuration.pivot = pivot;
 
         return configuration;
     }

@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
  public static class MathsUtils {
-    static Vector3 GetNearestPointOnSegment(Vector3 a, Vector3 b, Vector3 target) {
+    public static Vector3 GetNearestPointOnSegment(Vector3 a, Vector3 b, Vector3 target) {
+
         Vector3 ab = b - a;
         Vector3 ac = target - a;
-        float t = Vector3.Dot(ac, ab) / (ab.magnitude * ab.magnitude);
-        Vector3 ad = a + t * ab;
-        return ad;
+
+        float dot = Mathf.Clamp(Vector3.Dot(ac, ab.normalized), 0, ab.magnitude);
+
+        Vector3 projC = a + ab.normalized * dot;
+
+        Debug.Log(projC);
+
+        return projC;
     }
 
     public static Vector3 LinearBezier(Vector3 a, Vector3 b, float t) {

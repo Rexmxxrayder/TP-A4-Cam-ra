@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class FixedFollowView : AView
 {
-    [Range(0f, 360f)]
-    public float yaw;
-
-    [Range(-90f, 90f)]
-    public float pitch;
+    private float yaw;
+    private float pitch;
 
     [Range(-180f, 180f)]
     public float roll;
