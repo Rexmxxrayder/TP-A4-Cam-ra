@@ -6,7 +6,6 @@ abstract public class AView : MonoBehaviour
 {
 
     public float weight;
-    public bool isActiveOnStart;
 
     abstract public CameraConfiguration GetConfiguration();
 
@@ -17,10 +16,9 @@ abstract public class AView : MonoBehaviour
 
     void Start()
     {
-        SetActive(isActiveOnStart);
     }
 
-    void SetActive(bool isActive)
+    public void SetActive(bool isActive)
     {
         if(isActive)
             CameraController.Instance.AddView(this);

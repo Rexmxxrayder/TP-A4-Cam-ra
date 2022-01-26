@@ -18,7 +18,7 @@ public class DollyView : AView
 
     [Range(0f, 179f)]
     public float fov;
-    private CameraConfiguration configuration;
+    private CameraConfiguration configuration = new CameraConfiguration();
 
     public Rail rail;
     public float distanceOnRail;
@@ -30,7 +30,6 @@ public class DollyView : AView
     public bool isAuto;
 
     private void Awake() {
-        configuration = new CameraConfiguration();
     }
 
     private void Update() {

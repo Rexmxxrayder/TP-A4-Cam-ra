@@ -16,11 +16,10 @@ public class FixedView : AView
     [Range(0f, 179f)]
     public float fov;
 
-    private CameraConfiguration configuration;
+    private CameraConfiguration configuration = new CameraConfiguration();
 
     private void Awake()
     {
-        configuration = new CameraConfiguration();
     }
 
     public override CameraConfiguration GetConfiguration()

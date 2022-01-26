@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Curve : MonoBehaviour {
     public Vector3 a, b, c, d;
-    public float gizmoPoint = 100;
+    public int gizmoPoint = 100;
     public Vector3[] hizmoPoint;
 
     Vector3 GetPosition(float t) {
@@ -25,9 +25,8 @@ public class Curve : MonoBehaviour {
 
     public void DrawGizmos(Color color, Matrix4x4 localToWorldMatrix) {
         Gizmos.color = color;
-        for (float i = 0; i < gizmoPoint - 1; i++) {
-            Gizmos.DrawLine(GetPosition(1 / gizmoPoint * i, localToWorldMatrix), GetPosition(1 / gizmoPoint * (i + 1), localToWorldMatrix));
-            Debug.Log(1f / gizmoPoint * i);
+        for (int i = 0; i < gizmoPoint - 1; i++) {
+            Gizmos.DrawLine(GetPosition(1 / gizmoPoint * i, localToWorldMatrix), GetPosition(1f / gizmoPoint * (i + 1), localToWorldMatrix));
         }
     }
 }

@@ -67,7 +67,6 @@ public class Rail : MonoBehaviour {
             }
         }
         float invLerp = Mathf.InverseLerp(0, currentLength, distance);
-        Debug.Log(currentPoint);
         if (currentPoint == railPoint.Length - 1 && isLoop) {
             position.x = Mathf.Lerp(railPoint[currentPoint].position.x, railPoint[0].position.x, invLerp);
             position.y = Mathf.Lerp(railPoint[currentPoint].position.y, railPoint[0].position.y, invLerp);
