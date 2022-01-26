@@ -11,8 +11,6 @@ using UnityEngine;
 
         Vector3 projC = a + ab.normalized * dot;
 
-        Debug.Log(projC);
-
         return projC;
     }
 

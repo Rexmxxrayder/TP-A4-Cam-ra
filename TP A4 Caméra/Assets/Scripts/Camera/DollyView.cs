@@ -44,7 +44,7 @@ public class DollyView : AView
             for (int i = 0; i < rail.railPoint.Length - 1; i++)
             {
                 Vector3 positionNearestPoint = MathsUtils.GetNearestPointOnSegment(rail.railPoint[i].position, rail.railPoint[i + 1].position, target.position);
-                float newDistance = Vector3.Distance(position, target.position);
+                float newDistance = Vector3.Distance(positionNearestPoint, target.position);
 
                 if (newDistance < distance)
                 {
@@ -56,7 +56,7 @@ public class DollyView : AView
             if (rail.isLoop)
             {
                 Vector3 positionNearestPoint2 = MathsUtils.GetNearestPointOnSegment(rail.railPoint[rail.railPoint.Length - 1].position, rail.railPoint[0].position, target.position);
-                float newDistance2 = Vector3.Distance(position, target.position);
+                float newDistance2 = Vector3.Distance(positionNearestPoint2, target.position);
 
                 if (newDistance2 < distance)
                 {
@@ -65,7 +65,7 @@ public class DollyView : AView
                 }
             }
 
-            pivot = position;
+            gameObject.transform.position = position;
         }
         else
         {
@@ -107,7 +107,7 @@ public class DollyView : AView
         configuration.pitch = pitch;
         configuration.roll = roll;
         configuration.fov = fov;
-        configuration.pivot = pivot;
+        configuration.pivot = gameObject.transform.position;
 
         return configuration;
     }

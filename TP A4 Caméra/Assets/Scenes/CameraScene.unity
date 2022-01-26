@@ -169,8 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 10
   isActiveOnStart: 1
-  yaw: 0
-  pitch: 0
   roll: 0
   pivot: {x: 0, y: 0, z: 0}
   distance: 0
@@ -179,6 +177,7 @@ MonoBehaviour:
   distanceOnRail: 5
   speed: 10
   target: {fileID: 2098743070}
+  isAuto: 1
 --- !u!1 &348113606
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,10 +387,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weight: 2
   isActiveOnStart: 1
-  yaw: 0
-  pitch: 0
-  roll: 0
-  fov: 60
+  yaw: 132
+  pitch: -39
+  roll: 59
+  fov: 108
 --- !u!4 &976106395
 Transform:
   m_ObjectHideFlags: 0
@@ -732,7 +731,6 @@ MonoBehaviour:
   - {fileID: 1341891234}
   - {fileID: 596328773}
   isLoop: 1
-  isAuto: 0
 --- !u!4 &1679511382
 Transform:
   m_ObjectHideFlags: 0
@@ -981,7 +979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1981644542}
-  speed: 10
+  speed: 1
   activeViews: []
   centralTarget: {fileID: 2098743070}
   isCentralTarget: 0

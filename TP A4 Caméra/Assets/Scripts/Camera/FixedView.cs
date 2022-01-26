@@ -23,11 +23,6 @@ public class FixedView : AView
         configuration = new CameraConfiguration();
     }
 
-    private void OnDrawGizmos()
-    {
-        //configuration.DrawGizmos(Color.red);
-    }
-
     public override CameraConfiguration GetConfiguration()
     {
         configuration.Reset();

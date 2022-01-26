@@ -84,9 +84,15 @@ public class CameraController : MonoBehaviour
             currentConfig.distance = targetConfig.distance + (targetConfig.distance - currentConfig.distance) * speed * Time.deltaTime;
 
 
+            Vector2 vYawTarget = new Vector2(Mathf.Cos(targetConfig.yaw * Mathf.Deg2Rad),
+                Mathf.Sin(targetConfig.yaw * Mathf.Deg2Rad));
 
-            
-            currentConfig.yaw = targetConfig.yaw;
+            Vector2 vYawCurrent = new Vector2(Mathf.Cos(currentConfig.yaw * Mathf.Deg2Rad),
+                Mathf.Sin(currentConfig.yaw * Mathf.Deg2Rad));
+
+            Vector2 vYawLerp = Vector2.Lerp(vYawCurrent,vYawTarget, speed * Time.deltaTime);
+
+            currentConfig.yaw = Vector2.SignedAngle(Vector2.right, vYawLerp);
         }
         else
         {
@@ -168,5 +174,11 @@ public class CameraController : MonoBehaviour
 
     }
 
-
+    private void OnDrawGizmos()
+    {
+        if(currentConfig != null)
+        {
+            currentConfig.DrawGizmos(Color.red);
+        }
+    }
 }
