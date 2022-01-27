@@ -16,6 +16,7 @@ abstract public class AView : MonoBehaviour
 
     void Start()
     {
+        SetActive(true);
     }
 
     public void SetActive(bool isActive)

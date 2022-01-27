@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &89208468
 Transform:
   m_ObjectHideFlags: 0
@@ -168,7 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 10
-  isActiveOnStart: 1
   roll: 0
   pivot: {x: 0, y: 0, z: 0}
   distance: 0
@@ -178,6 +177,74 @@ MonoBehaviour:
   speed: 10
   target: {fileID: 2098743070}
   isAuto: 1
+--- !u!1 &211309128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 211309129}
+  - component: {fileID: 211309130}
+  m_Layer: 0
+  m_Name: FreeFollowView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &211309129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211309128}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 15.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1794596350}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &211309130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211309128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f740ece18e1894d4bb88ccdeb1fdd87e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weight: 1
+  yaw: 0
+  yawSpeed: 100
+  pitchs:
+  - -90
+  - 15
+  - 50
+  pitch: -90
+  rolls:
+  - 0
+  - 0
+  - 0
+  roll: 0
+  pivot: {x: 0, y: -2, z: 24.66}
+  distance: 0
+  curve: {fileID: 1361845809}
+  curveT: 0.5
+  curveSpeed: 0.5
+  fovs:
+  - 45
+  - 60
+  - 120
+  fov: 45
+  target: {fileID: 2098743070}
 --- !u!1 &348113606
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,7 +290,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 5
-  isActiveOnStart: 1
   yaw: 0
   pitch: 0
   roll: 0
@@ -386,7 +452,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 2
-  isActiveOnStart: 1
   yaw: 132
   pitch: -39
   roll: 59
@@ -528,12 +593,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2980c805d7e996546ac396ae1aece719, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: {x: 0, y: 0, z: 0}
-  b: {x: -2, y: 3, z: 0}
-  c: {x: 8, y: 3, z: 0}
-  d: {x: 4, y: 0, z: 0}
+  a: {x: 0, y: -2, z: 0}
+  b: {x: 0, y: -1, z: -4}
+  c: {x: 0, y: 4, z: -4}
+  d: {x: 0, y: 5, z: 0}
   gizmoPoint: 100
-  hizmoPoint: []
 --- !u!4 &1361845810
 Transform:
   m_ObjectHideFlags: 0
@@ -546,8 +610,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 2098743070}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1387037702
 GameObject:
@@ -594,7 +658,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 10
-  isActiveOnStart: 1
   roll: 0
   fov: 60
   target: {fileID: 349393665}
@@ -784,6 +847,7 @@ Transform:
   - {fileID: 2110235544}
   - {fileID: 1387037703}
   - {fileID: 89208468}
+  - {fileID: 211309129}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -979,7 +1043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1981644542}
-  speed: 1
+  speed: 10
   activeViews: []
   centralTarget: {fileID: 2098743070}
   isCentralTarget: 0
@@ -1107,10 +1171,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098743066}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 24.66}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1361845810}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1159,7 +1224,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weight: 5
-  isActiveOnStart: 1
   roll: 0
   fov: 60
   target: {fileID: 1457529003}
