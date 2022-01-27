@@ -14,8 +14,6 @@ public class DollyView : AView
     [SerializeField]
     public Vector3 pivot;
 
-    public float distance;
-
     [Range(0f, 179f)]
     public float fov;
     private CameraConfiguration configuration = new CameraConfiguration();
@@ -30,10 +28,10 @@ public class DollyView : AView
     public bool isAuto;
 
     private void Awake() {
+
     }
 
     private void Update() {
-        
         
         if (isAuto)
         {

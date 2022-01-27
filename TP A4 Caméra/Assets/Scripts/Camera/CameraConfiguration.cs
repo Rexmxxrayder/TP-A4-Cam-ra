@@ -7,15 +7,15 @@ using System;
 [Serializable]
 public class CameraConfiguration
 {
-    
+
     [Range(0f, 360f)]
-    public float yaw;
+    public float yaw = 0;
 
     [Range(-90f, 90f)]
-    public float pitch;
+    public float pitch = 0;
 
     [Range(-180f, 180f)]
-    public float roll;
+    public float roll = 0;
 
     [SerializeField]
     public Vector3 pivot;

@@ -33,6 +33,6 @@ public class SphereViewVolume : AViewVolume {
     }
 
     public override float ComputeSelfWeight() {
-        return Mathf.InverseLerp(innerRadius, outerRadius, distance);
+        return Mathf.InverseLerp(outerRadius, innerRadius, distance);
     }
 }

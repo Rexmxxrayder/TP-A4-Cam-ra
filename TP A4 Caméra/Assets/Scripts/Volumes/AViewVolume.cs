@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class AViewVolume : MonoBehaviour {
     public int Priority = 0;
     public AView View;
+    public bool isCutOnSwitch;
     protected bool isActive { get; private set; }
 
     // Start is called before the first frame update
@@ -24,6 +25,9 @@ public abstract class AViewVolume : MonoBehaviour {
     protected void SetActive(bool isActive) {
         if (isActive) {
             ViewVolumeBlender.instance.AddVolume(this);
+            if (isCutOnSwitch) {
+                CameraController.Instance.Cut();
+            }
         } else {
             ViewVolumeBlender.instance.RemoveVolume(this);
         }
