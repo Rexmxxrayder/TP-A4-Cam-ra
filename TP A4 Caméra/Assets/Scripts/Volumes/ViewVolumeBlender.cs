@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ViewVolumeBlender : MonoBehaviour
 {
+    [SerializeField]
     List<AViewVolume> ActiveViewVolume = new List<AViewVolume> ();
     Dictionary<AView, List<AViewVolume>> VolumesPerViews = new Dictionary<AView, List<AViewVolume>>();
     public static ViewVolumeBlender instance;
@@ -43,13 +44,12 @@ public class ViewVolumeBlender : MonoBehaviour
         VolumesPerViews[aviewVolume.View].Remove(aviewVolume);
         if (VolumesPerViews[aviewVolume.View].Count == 0) {
             VolumesPerViews.Remove(aviewVolume.View);
-            aviewVolume.View.gameObject.SetActive(false);
+            aviewVolume.View.SetActive(false);
         }
     }
 
     private void OnGUI() {
         for (int i = 0; i < ActiveViewVolume.Count; i++) {
-
             GUILayout.Label(tex);
             GUILayout.Label(ActiveViewVolume[i].name);
         }

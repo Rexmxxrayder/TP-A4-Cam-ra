@@ -16,9 +16,7 @@ using UnityEngine;
 
     public static Vector3 LinearBezier(Vector3 a, Vector3 b, float t) {
         Vector3 position;
-        position.x = Mathf.Lerp(a.x, b.x, t);
-        position.y = Mathf.Lerp(a.y, b.y, t);
-        position.z = Mathf.Lerp(a.z, b.z, t);
+        position = Vector3.Lerp(a, b, t);
         return position;
     }
 

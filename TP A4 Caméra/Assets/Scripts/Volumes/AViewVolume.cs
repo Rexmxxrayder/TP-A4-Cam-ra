@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AViewVolume : MonoBehaviour {
-    public int Priority;
+    public int Priority = 0;
     public AView View;
     protected bool isActive { get; private set; }
 
