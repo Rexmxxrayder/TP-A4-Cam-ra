@@ -509,7 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Priority: 2
   View: {fileID: 333598256}
-  isCutOnSwitch: 0
+  isCutOnSwitch: 1
   target: {fileID: 1174196420}
 --- !u!4 &508765285
 Transform:
@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 265c701a2fe6c504983bd57cf4e4a3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Priority: 0
+  Priority: 1
   View: {fileID: 505585728}
   isCutOnSwitch: 1
 --- !u!4 &659625947

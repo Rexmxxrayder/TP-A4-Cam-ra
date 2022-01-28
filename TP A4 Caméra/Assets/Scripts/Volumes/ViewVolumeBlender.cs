@@ -29,7 +29,7 @@ public class ViewVolumeBlender : MonoBehaviour
         }
     }
 
-    private void Update() {
+    public void Update() {
         int Max = 0;
         for (int i = 0; i < ActiveViewVolume.Count; i++) {
             if (ActiveViewVolume[i].Priority > Max) {
@@ -40,9 +40,6 @@ public class ViewVolumeBlender : MonoBehaviour
             if (ActiveViewVolume[i].Priority < Max) {
                 ActiveViewVolume[i].View.weight = 0;
             } else {
-                if (ActiveViewVolume[i].isCutOnSwitch) {
-                    CameraController.Instance.Cut();
-                }
                 ActiveViewVolume[i].View.weight = Mathf.Max(ActiveViewVolume[i].View.weight, ActiveViewVolume[i].ComputeSelfWeight());
             }
         }

@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour {
         }
     }
 
-    private void LateUpdate() {
+    private void Update() {
         Debug.Log("aaaaaaa");
         for (int i = 0; i < activeViews.Count; i++) {
             Debug.Log(activeViews[i].name);

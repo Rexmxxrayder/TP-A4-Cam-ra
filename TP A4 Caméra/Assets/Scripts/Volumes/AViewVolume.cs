@@ -23,14 +23,15 @@ public abstract class AViewVolume : MonoBehaviour {
     }
 
     protected void SetActive(bool isActive) {
+        if (isCutOnSwitch) {
+            CameraController.Instance.Cut();
+        }
         if (isActive) {
             ViewVolumeBlender.instance.AddVolume(this);
-            if (isCutOnSwitch) {
-                CameraController.Instance.Cut();
-            }
         } else {
             ViewVolumeBlender.instance.RemoveVolume(this);
         }
         this.isActive = isActive;
+        ViewVolumeBlender.instance.Update();
     }
 }
