@@ -7,9 +7,7 @@ public class TriggeredViewVolume : AViewVolume {
     BoxCollider bc;
     // Start is called before the first frame update
     void Start() {
-        bc = gameObject.AddComponent(typeof(BoxCollider)) as BoxCollider;
-        bc.isTrigger = true;
-        bc.size = new Vector3(2,2,2);
+        bc = GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
